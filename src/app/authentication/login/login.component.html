@@ -1,0 +1,20 @@
+<form nz-form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label>Tên đăng nhập</nz-form-label>
+    <nz-form-control>
+      <input type="text" nz-input formControlName="username">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Mâ khẩu</nz-form-label>
+    <nz-form-control>
+      <input type="password" nz-input formControlName="password">
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row nzJustify="center">
+    <button nz-button nzType="primary">Đăng nhập</button>
+  </div>
+  <div nz-row nzJustify="center">
+    Bạn chưa có tk, click<span class="register-button" (click)="register()"> Đăng kí</span>
+  </div>
+</form>
