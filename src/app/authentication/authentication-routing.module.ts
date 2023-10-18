@@ -22,6 +22,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "forget-password",
+        loadComponent: () =>
+          import("./forget-password/forget-password.component").then(
+            (c) => c.ForgetPasswordComponent
+          ),
+      },
+      {
         path: "**",
         redirectTo: "login"
       }

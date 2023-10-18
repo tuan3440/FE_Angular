@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
+import {AuthGuard} from "./shared/guards/auth.guard";
 
 export const routes: Routes = [
   {
@@ -28,7 +29,8 @@ export const routes: Routes = [
             (c) => c.ManagementModule
           )
       },
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: "auth",
@@ -38,7 +40,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: '', redirectTo: 'pages',
+    path: '', redirectTo: 'auth',
     pathMatch: 'full'
   },
 ];
