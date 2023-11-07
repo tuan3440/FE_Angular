@@ -1,20 +1,21 @@
-<nz-layout>
-  <nz-header>
-    <div class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item>nav 1</li>
-      <li nz-menu-item>nav 2</li>
-      <li nz-menu-item>nav 3</li>
-      <li nz-menu-item class="logout" (click)="logout()">Log out</li>
+<div nz-row nzGutter="10">
+  <div nz-col nzSpan="4" class="side-bar">
+    <button nz-button nzType="primary" (click)="toggleCollapsed()">
+      <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+    </button>
+    <ul nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzTitle="Quản lí phân quyền" nzIcon="appstore">
+        <ul>
+          <li nz-menu-item [routerLink]="['/pages/auth-manage/sys-role']">Quản lí vai trò</li>
+          <li nz-menu-item [routerLink]="['/pages/auth-manage/sys-action']">Quản lí hành động</li>
+          <li nz-menu-item [routerLink]="['/pages/auth-manage/sys-module']">Quản lí module</li>
+          <li nz-menu-item [routerLink]="['/pages/auth-manage/sys-user']">Quản lí người dùng</li>
+        </ul>
+      </li>
+      <li nz-menu-item (click)="logout()">Logout</li>
     </ul>
-  </nz-header>
-  <nz-content>
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-      <nz-breadcrumb-item>List</nz-breadcrumb-item>
-      <nz-breadcrumb-item>App</nz-breadcrumb-item>
-    </nz-breadcrumb>
-    <div class="inner-content">Content</div>
-  </nz-content>
-  <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
-</nz-layout>
+  </div>
+  <div nz-col nzSpan="20">
+    <router-outlet></router-outlet>
+  </div>
+</div>

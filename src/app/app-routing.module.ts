@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
 import {AuthGuard} from "./shared/guards/auth.guard";
+import {WelcomeComponent} from "./welcome/welcome.component";
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
     path: "pages",
     component: LayoutComponent,
     children: [
+      {
+        path: "",
+        component: WelcomeComponent
+      },
       {
         path: "auth-manage",
         loadChildren: () =>
