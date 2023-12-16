@@ -1,7 +1,7 @@
 <nz-card class="custom">
   <div class="header">
     <p>Quản lý người dùng</p>
-<!--    <button nz-button nzType="primary" (click)="openDialog()">Thêm mới</button>-->
+        <button nz-button nzType="primary" (click)="openDialog()" *ngIf="checkVisible('CREATE')">Thêm mới</button>
   </div>
 </nz-card>
 <nz-card>
@@ -53,7 +53,7 @@
         <p *ngIf="data.gender == 1">Nam</p>
         <p *ngIf="data.gender == 0">Nữ</p>
       </td>
-      <td>{{ data.dateOfBirth }}</td>
+      <td>{{ data.dateOfBirth | date:'dd/MM/YYYY' }}</td>
       <td>{{ data.email }}</td>
       <td>{{ data.cellphone }}</td>
       <td>
@@ -61,9 +61,9 @@
         <button *ngIf="data.status == 0" nz-button nzType="dashed">Bị khóa</button>
       </td>
       <td style="text-align: center">
-        <span nz-icon nzType="edit" nzTheme="outline" style="margin-right: 20px" (click)="edit(data)"></span>
-        <span nz-icon nzType="delete" nzTheme="outline" style="margin-right: 20px" (click)="delete(data.id)"></span>
-        <span nz-icon nzType="setting" nzTheme="outline" (click)="config(data.id)"></span>
+        <span nz-icon nzType="edit" nzTheme="outline" style="margin-right: 20px" (click)="edit(data)" *ngIf="checkVisible('UPDATE')"></span>
+        <span nz-icon nzType="delete" nzTheme="outline" style="margin-right: 20px" (click)="delete(data.id)" *ngIf="checkVisible('DELETE')"></span>
+        <span nz-icon nzType="setting" nzTheme="outline" (click)="config(data.id)" *ngIf="checkVisible('CONFIG')"></span>
       </td>
     </tr>
     </tbody>

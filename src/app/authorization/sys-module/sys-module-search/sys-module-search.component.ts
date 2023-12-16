@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from "@angular/forms";
 import {NzButtonModule} from "ng-zorro-antd/button";
@@ -9,30 +9,28 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzWaveModule} from "ng-zorro-antd/core/wave";
-import {NzFormatEmitEvent, NzTreeModule} from "ng-zorro-antd/tree";
-import {SysRoleService} from "../../@core/service/authorization/sysRole.service";
-import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
+import {SysModuleSidebarComponent} from "../sys-module-sidebar/sys-module-sidebar.component";
+import {SysModule} from "../../../@core/model/authorization/sysModule.model";
+import {SysModuleService} from "../../../@core/service/authorization/sysModule.service";
+import {NzModalService} from "ng-zorro-antd/modal";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {SysRoleFormComponent} from "../sys-role/sys-role-form/sys-role-form.component";
-import {SysRole} from "../../@core/model/authorization/sysRole.model";
-import {SysModule} from "../../@core/model/authorization/sysModule.model";
-import {SysModuleService} from "../../@core/service/authorization/sysModule.service";
-import {SysModuleFormComponent} from "./sys-module-form/sys-module-form.component";
-import {SysModuleSidebarComponent} from "./sys-module-sidebar/sys-module-sidebar.component";
-import {SysModuleActionComponent} from "./sys-module-action/sys-module-action.component";
+import {SysModuleFormComponent} from "../sys-module-form/sys-module-form.component";
+import {SysRole} from "../../../@core/model/authorization/sysRole.model";
+import {SysModuleActionComponent} from "../sys-module-action/sys-module-action.component";
+import {CommonUtils} from "../../../@core/service/common-utils.service";
 
 @Component({
-  selector: 'app-sys-module',
+  selector: 'app-sys-module-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, NzButtonModule, NzCardModule, NzGridModule, NzIconModule, NzInputModule, NzSelectModule, NzTableModule, NzWaveModule, NzTreeModule, SysModuleSidebarComponent],
-  templateUrl: './sys-module.component.html',
-  styleUrls: ['./sys-module.component.scss'],
+    imports: [CommonModule, FormsModule, NzButtonModule, NzCardModule, NzGridModule, NzIconModule, NzInputModule, NzSelectModule, NzTableModule, NzWaveModule, SysModuleSidebarComponent],
+  templateUrl: './sys-module-search.component.html',
+  styleUrls: ['./sys-module-search.component.scss'],
   providers: [
     NzModalService,
     NzNotificationService
   ]
 })
-export class SysModuleComponent {
+export class SysModuleSearchComponent implements OnInit {
   keyword: string = '';
   status: number = -1;
   parentId: number = -1;
@@ -153,4 +151,7 @@ export class SysModuleComponent {
     })
   }
 
+  checkVisible(action: string) {
+    return CommonUtils.hasPermission('MANAGE_MODULE', action);
+  }
 }

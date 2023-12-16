@@ -1,33 +1,34 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NzCardModule} from "ng-zorro-antd/card";
-import {NzButtonModule} from "ng-zorro-antd/button";
-import {NzGridModule} from "ng-zorro-antd/grid";
-import {NzInputModule} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzCardModule} from "ng-zorro-antd/card";
+import {NzGridModule} from "ng-zorro-antd/grid";
+import {NzIconModule} from "ng-zorro-antd/icon";
+import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzTableModule} from "ng-zorro-antd/table";
-import {SysRole} from "../../@core/model/authorization/sysRole.model";
-import {NzIconModule} from "ng-zorro-antd/icon";
-import {SysRoleService} from "../../@core/service/authorization/sysRole.service";
+import {NzWaveModule} from "ng-zorro-antd/core/wave";
+import {SysRole} from "../../../@core/model/authorization/sysRole.model";
+import {SysRoleService} from "../../../@core/service/authorization/sysRole.service";
 import {NzModalService} from "ng-zorro-antd/modal";
-import {SysRoleFormComponent} from "./sys-role-form/sys-role-form.component";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {config} from "rxjs";
-import {SysRoleModuleComponent} from "./sys-role-module/sys-role-module.component";
+import {SysRoleFormComponent} from "../sys-role-form/sys-role-form.component";
+import {SysRoleModuleComponent} from "../sys-role-module/sys-role-module.component";
+import {CommonUtils} from "../../../@core/service/common-utils.service";
 
 @Component({
-  selector: 'app-sys-role',
+  selector: 'app-sys-role-search',
   standalone: true,
-  imports: [CommonModule, NzCardModule, NzButtonModule, NzGridModule, NzInputModule, FormsModule, NzSelectModule, NzTableModule, NzIconModule],
-  templateUrl: './sys-role.component.html',
-  styleUrls: ['./sys-role.component.scss'],
+    imports: [CommonModule, FormsModule, NzButtonModule, NzCardModule, NzGridModule, NzIconModule, NzInputModule, NzSelectModule, NzTableModule, NzWaveModule],
+  templateUrl: './sys-role-search.component.html',
+  styleUrls: ['./sys-role-search.component.scss'],
   providers: [
     NzModalService,
     NzNotificationService
   ]
 })
-export class SysRoleComponent implements OnInit {
+export class SysRoleSearchComponent implements OnInit {
   keyword: string = '';
   status: number = -1;
   roles: SysRole[] = []
@@ -50,10 +51,10 @@ export class SysRoleComponent implements OnInit {
 
   search() {
     this._sysRoleService.searchRoles(
-    {
+      {
         keyword: this.keyword,
         status: this.status
-    },
+      },
       {
         page: this.page.page - 1,
         size: this.page.size,
@@ -65,7 +66,7 @@ export class SysRoleComponent implements OnInit {
         this.roles = res.body;
       }, error => {
 
-        }
+      }
     )
   }
 
@@ -136,5 +137,9 @@ export class SysRoleComponent implements OnInit {
         }
       }
     })
+  }
+
+  checkVisible(action: string) {
+    return CommonUtils.hasPermission('MANAGE_ROLE', action);
   }
 }

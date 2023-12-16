@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormsModule} from "@angular/forms";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzCardModule} from "ng-zorro-antd/card";
 import {NzGridModule} from "ng-zorro-antd/grid";
@@ -8,27 +9,26 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzWaveModule} from "ng-zorro-antd/core/wave";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {SysRole} from "../../@core/model/authorization/sysRole.model";
+import {SysAction} from "../../../@core/model/authorization/sysAction.model";
+import {SysActionService} from "../../../@core/service/authorization/sysAction.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {SysActionFormComponent} from "./sys-action-form/sys-action-form.component";
-import {SysActionService} from "../../@core/service/authorization/sysAction.service";
-import {SysAction} from "../../@core/model/authorization/sysAction.model";
-import {CommonUtils} from "../../@core/service/common-utils.service";
+import {SysActionFormComponent} from "../sys-action-form/sys-action-form.component";
+import {SysRole} from "../../../@core/model/authorization/sysRole.model";
+import {CommonUtils} from "../../../@core/service/common-utils.service";
 
 @Component({
-  selector: 'app-sys-action',
+  selector: 'app-sys-action-search',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzCardModule, NzGridModule, NzIconModule, NzInputModule, NzSelectModule, NzTableModule, NzWaveModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './sys-action.component.html',
-  styleUrls: ['./sys-action.component.scss'],
+  imports: [CommonModule, FormsModule, NzButtonModule, NzCardModule, NzGridModule, NzIconModule, NzInputModule, NzSelectModule, NzTableModule, NzWaveModule],
+  templateUrl: './sys-action-search.component.html',
+  styleUrls: ['./sys-action-search.component.scss'],
   providers: [
     NzModalService,
     NzNotificationService
   ]
 })
-export class SysActionComponent {
+export class SysActionSearchComponent {
   keyword: string = '';
   status: number = -1;
   actions: SysAction[] = []
@@ -124,8 +124,6 @@ export class SysActionComponent {
     this.page.page = event;
     this.search()
   }
-
-  protected readonly CommonUtils = CommonUtils;
 
   checkVisible(action: string) {
     return CommonUtils.hasPermission('MANAGE_ACTION', action);

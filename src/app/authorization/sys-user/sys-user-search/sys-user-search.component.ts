@@ -9,28 +9,26 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzWaveModule} from "ng-zorro-antd/core/wave";
-import {SysRole} from "../../@core/model/authorization/sysRole.model";
-import {SysRoleService} from "../../@core/service/authorization/sysRole.service";
+import {SysUser} from "../../../@core/model/authorization/sysUser.model";
+import {SysRoleService} from "../../../@core/service/authorization/sysRole.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {SysRoleFormComponent} from "../sys-role/sys-role-form/sys-role-form.component";
-import {SysUser} from "../../@core/model/authorization/sysUser.model";
-import {SysUserService} from "../../@core/service/authorization/sysUser.service";
-import {SysRoleModuleComponent} from "../sys-role/sys-role-module/sys-role-module.component";
-import {SysUserRoleComponent} from "./sys-user-role/sys-user-role.component";
+import {SysUserService} from "../../../@core/service/authorization/sysUser.service";
+import {SysUserRoleComponent} from "../sys-user-role/sys-user-role.component";
+import {CommonUtils} from "../../../@core/service/common-utils.service";
 
 @Component({
-  selector: 'app-sys-user',
+  selector: 'app-sys-user-search',
   standalone: true,
     imports: [CommonModule, FormsModule, NzButtonModule, NzCardModule, NzGridModule, NzIconModule, NzInputModule, NzSelectModule, NzTableModule, NzWaveModule],
-  templateUrl: './sys-user.component.html',
-  styleUrls: ['./sys-user.component.scss'],
+  templateUrl: './sys-user-search.component.html',
+  styleUrls: ['./sys-user-search.component.scss'],
   providers: [
     NzModalService,
     NzNotificationService
   ]
 })
-export class SysUserComponent implements OnInit {
+export class SysUserSearchComponent implements OnInit {
   keyword: string = '';
   status: number = -1;
   users: SysUser[] = []
@@ -73,53 +71,14 @@ export class SysUserComponent implements OnInit {
     )
   }
 
-  openDialog() {
-    this._modalService.create({
-      nzTitle: 'Thêm mới vai trò',
-      nzContent: SysRoleFormComponent,
-      nzWidth: '60vw',
-      nzFooter: null,
-      nzData: {
-        close: () => {
-          this.search();
-        }
-      }
-    })
-  }
 
-  edit(data: SysRole) {
-    this._modalService.create({
-      nzTitle: 'Thêm mới vai trò',
-      nzContent: SysRoleFormComponent,
-      nzWidth: '60vw',
-      nzFooter: null,
-      nzData: {
-        role: data,
-        close: () => {
-          this.search();
-        }
-      }
-    })
+
+  edit(data: SysUser) {
+
   }
 
   delete(id: number | undefined) {
-    if (id) {
-      this._modalService.confirm({
-        nzTitle: '<i>Bạn có muốn xóa vai trò này ?</i>',
-        nzContent: '',
-        nzOnOk: () => {
-          this._sysRoleService.delete(id).subscribe(
-            res => {
-              this._notify.success('','xóa thành công');
-              this.search();
-            },
-            error => {
-              this._notify.error('',' xóa thất bại');
-            }
-          )
-        }
-      });
-    }
+
   }
 
   onCurrentPageDataChange(event: any) {
@@ -141,5 +100,13 @@ export class SysUserComponent implements OnInit {
         }
       }
     })
+  }
+
+  checkVisible(action: string) {
+    return CommonUtils.hasPermission('MANAGE_USER', action);
+  }
+
+  openDialog() {
+
   }
 }

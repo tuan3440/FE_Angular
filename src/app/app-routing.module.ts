@@ -25,19 +25,16 @@ export const routes: Routes = [
         loadChildren: () =>
           import("./authorization/authorization.module").then(
             (c) => c.AuthorizationModule
-          ),
-        canActivate: [AuthGuard]
+          )
       },
       {
         path: "management",
         loadChildren: () =>
           import("./management/management.module").then(
             (c) => c.ManagementModule
-          ),
-        canActivate: [AuthGuard]
+          )
       },
-    ],
-    canActivate: [AuthGuard]
+    ]
   },
   {
     path: "auth",
