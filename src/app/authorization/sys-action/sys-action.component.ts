@@ -15,6 +15,7 @@ import {NzNotificationService} from "ng-zorro-antd/notification";
 import {SysActionFormComponent} from "./sys-action-form/sys-action-form.component";
 import {SysActionService} from "../../@core/service/authorization/sysAction.service";
 import {SysAction} from "../../@core/model/authorization/sysAction.model";
+import {CommonUtils} from "../../@core/service/common-utils.service";
 
 @Component({
   selector: 'app-sys-action',
@@ -46,6 +47,7 @@ export class SysActionComponent {
 
   ngOnInit() {
     this.search();
+    // CommonUtils.hasPermission('MANAGE_ACTION', 'CREATE')
   }
 
   search() {
@@ -121,5 +123,11 @@ export class SysActionComponent {
   onCurrentPageDataChange(event: any) {
     this.page.page = event;
     this.search()
+  }
+
+  protected readonly CommonUtils = CommonUtils;
+
+  checkVisible(action: string) {
+    return CommonUtils.hasPermission('MANAGE_ACTION', action);
   }
 }

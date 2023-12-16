@@ -39,13 +39,19 @@ export class SysModuleService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.post<any>(`${environment.serverUrl.apiUrl}/admin/module/delete/` +  id, {}, {
+    return this.http.post<any>(`${environment.serverUrl.apiUrl}/admin/module/delete/` + id, {}, {
       observe: "response",
     });
   }
 
   openTreeModule(): Observable<any> {
-    return this.http.post<any>(`${environment.serverUrl.apiUrl}/admin/module/openTree`, {
+    return this.http.post<any>(`${environment.serverUrl.apiUrl}/admin/module/openTree`, {}, {
+      observe: "response",
+    });
+  }
+
+  getModuleByUserId(userId: number): Observable<any> {
+    return this.http.post<any>(`${environment.serverUrl.apiUrl}/admin/module/getMenu`, userId, {
       observe: "response",
     });
   }

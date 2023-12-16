@@ -19,6 +19,7 @@ import {SysModule} from "../../@core/model/authorization/sysModule.model";
 import {SysModuleService} from "../../@core/service/authorization/sysModule.service";
 import {SysModuleFormComponent} from "./sys-module-form/sys-module-form.component";
 import {SysModuleSidebarComponent} from "./sys-module-sidebar/sys-module-sidebar.component";
+import {SysModuleActionComponent} from "./sys-module-action/sys-module-action.component";
 
 @Component({
   selector: 'app-sys-module',
@@ -138,7 +139,18 @@ export class SysModuleComponent {
   }
 
   config(id: number | undefined) {
+    this._modalService.create({
+      nzTitle: 'Câu hình module theo action',
+      nzContent: SysModuleActionComponent,
+      nzWidth: '60vw',
+      nzFooter: null,
+      nzData: {
+        moduleId: id,
+        close: () => {
 
+        }
+      }
+    })
   }
 
 }

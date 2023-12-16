@@ -16,6 +16,8 @@ import {NzNotificationService} from "ng-zorro-antd/notification";
 import {SysRoleFormComponent} from "../sys-role/sys-role-form/sys-role-form.component";
 import {SysUser} from "../../@core/model/authorization/sysUser.model";
 import {SysUserService} from "../../@core/service/authorization/sysUser.service";
+import {SysRoleModuleComponent} from "../sys-role/sys-role-module/sys-role-module.component";
+import {SysUserRoleComponent} from "./sys-user-role/sys-user-role.component";
 
 @Component({
   selector: 'app-sys-user',
@@ -124,5 +126,20 @@ export class SysUserComponent implements OnInit {
     console.log(event)
     this.page.page = event;
     this.search()
+  }
+
+  config(id: number | undefined) {
+    this._modalService.create({
+      nzTitle: 'Cấu hình vai trò cho user',
+      nzContent: SysUserRoleComponent,
+      nzWidth: '60vw',
+      nzFooter: null,
+      nzData: {
+        userId: id,
+        close: () => {
+
+        }
+      }
+    })
   }
 }

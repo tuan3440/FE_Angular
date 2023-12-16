@@ -20,6 +20,17 @@ export class AuthGuard implements CanActivate {
               this.router.navigate(['/auth/login']);
               return false;
             }
+            // check role by module
+            if (state.url == '/pages') {
+              return true;
+            }
+      const module = JSON.parse(AppStorage.get('module'));
+
+      let a: any[] = module.filter((m: { pathUrl: string; }) => m.pathUrl === state.url);
+            if (a.length == 0) {
+              this.router.navigate(['/pages']);
+              return false;
+            }
             return true;
     }
 

@@ -47,6 +47,7 @@ export class LoginComponent {
     const data = this.loginForm.value;
     this._authService.login(data).subscribe(
       res => {
+        console.log(res);
         const user: any = {};
         user.access_token = res.body.id_token;
         AppStorage.setUserToken(user);

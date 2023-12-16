@@ -38,7 +38,7 @@ export class SysModuleSidebarComponent implements OnInit {
   openTree() {
     this._sysModuleService.openTreeModule().subscribe(
       res => {
-        this.nodes = this.parseData(res);
+        this.nodes = this.parseData(res.body);
       }
     )
   }
@@ -47,11 +47,21 @@ export class SysModuleSidebarComponent implements OnInit {
     const data: NzTreeNodeOptions[] = [];
     if (body && body.length > 0) {
       body.forEach(node => {
-        data.push({
-          key: node.id.toString(),
-          title: node.name,
-          children: this.parseData(node.children)
-        });
+        if (node.children.length > 0) {
+          data.push({
+            key: node.id.toString(),
+            title: node.name,
+            children: this.parseData(node.children)
+          });
+        } else {
+          data.push({
+            key: node.id.toString(),
+            title: node.name,
+            children: [],
+            isLeaf: true
+          });
+        }
+
       })
     }
     return data;

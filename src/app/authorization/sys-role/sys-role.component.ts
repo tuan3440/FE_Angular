@@ -14,6 +14,7 @@ import {NzModalService} from "ng-zorro-antd/modal";
 import {SysRoleFormComponent} from "./sys-role-form/sys-role-form.component";
 import {NzNotificationService} from "ng-zorro-antd/notification";
 import {config} from "rxjs";
+import {SysRoleModuleComponent} from "./sys-role-module/sys-role-module.component";
 
 @Component({
   selector: 'app-sys-role',
@@ -118,12 +119,22 @@ export class SysRoleComponent implements OnInit {
   }
 
   onCurrentPageDataChange(event: any) {
-    console.log(event)
     this.page.page = event;
     this.search()
   }
 
   config(id: number | undefined) {
+    this._modalService.create({
+      nzTitle: 'Cấu hình module cho vai trò',
+      nzContent: SysRoleModuleComponent,
+      nzWidth: '60vw',
+      nzFooter: null,
+      nzData: {
+        roleId: id,
+        close: () => {
 
+        }
+      }
+    })
   }
 }

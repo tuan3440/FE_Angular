@@ -39,7 +39,7 @@ export class SysModuleTreeComponent implements OnInit {
   private openTree() {
     this._sysModuleService.openTreeModule().subscribe(
       res => {
-        this.nodes = this.parseData(res);
+        this.nodes = this.parseData(res.body);
       }
     )
   }

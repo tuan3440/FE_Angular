@@ -2,6 +2,7 @@ import { Injectable, QueryList } from "@angular/core";
 import { AppStorage } from "./AppStorage";
 import { Route, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import {jwtDecode} from "jwt-decode";
 
 
 interface TreeNode {
@@ -14,7 +15,17 @@ interface TreeNode {
     providedIn: 'root'
 })
 export class CommonUtils {
-
+    public static hasPermission(moduleCode: string, actionCode: string) {
+      let user = AppStorage.getUserToken();
+      let jwt = user.access_token;
+      let infoJwt: any = jwtDecode(jwt);
+      let authList: string = infoJwt.auth;
+      let authArray: string[] = authList.split(',');
+      if (authArray.includes(moduleCode + '_' + actionCode)) {
+        return true;
+      }
+      return false;
+    }
     public static isNullOrEmpty(str: any): boolean {
         return !str || (str + '').trim() === '';
     }
